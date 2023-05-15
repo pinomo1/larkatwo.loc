@@ -7,8 +7,12 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\Admin\AdminAboutController;
+use App\Http\Controllers\Admin\AdminCategoryController;
+use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\AdminIndexController;
-
+use App\Http\Controllers\Admin\AdminSocialController;
+use App\Http\Controllers\Admin\BlogUpdateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +48,29 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->prefix('adminka')->group(function () {
     Route::get('/', [AdminIndexController::class, 'AdminIndexPage'])->name('adminka');
+    Route::get('/blog/list', [BlogUpdateController::class, 'BlogPage'])->name('bloglist');
+    Route::get('/blog/list/add', [BlogUpdateController::class, 'BlogAddPage'])->name('blogadd');
+    Route::post('/blog/list/add/post', [BlogUpdateController::class, 'BlogAdd'])->name('addpost');
+    Route::get('/blog/list/edit/{id}', [BlogUpdateController::class, 'EditPage'])->name('editPage');
+    Route::post('/blog/list/edit/post', [BlogUpdateController::class, 'EditPost'])->name('editPost');
+    Route::get('/blog/list/delete/{id}', [BlogUpdateController::class, 'PostDelete'])->name('postdelete');
+    Route::get('/blog/categories', [AdminCategoryController::class, 'index'])->name('categorylist');
+    Route::get('/blog/categories/add', [AdminCategoryController::class, 'addPage'])->name('categoryAddPage');
+    Route::post('/blog/categories/add/category', [AdminCategoryController::class, 'add'])->name('categoryAdd');
+    Route::get('/blog/categories/edit/{id}', [AdminCategoryController::class, 'editPage'])->name('categoryEditPage');
+    Route::post('/blog/categories/edit', [AdminCategoryController::class, 'edit'])->name('categoryEdit');
+    Route::get('/blog/categories/delete/{id}', [AdminCategoryController::class, 'delete'])->name('categoryDelete');
+    Route::post('/home-title', [AdminIndexController::class, 'HomeTitle'])->name('HomeTitle');
+    Route::get('/about', [AdminAboutController::class, 'HomeAbout'])->name('homeAbout');
+    Route::post('/about/update', [AdminAboutController::class, 'AboutUpdate'])->name('aboutUpdate');
+    Route::get('/contact', [AdminContactController::class, 'Contact'])->name('contact');
+    Route::post('/contact/update', [AdminContactController::class, 'ContactUpdate'])->name('contactUpdate');
+    Route::get('/social', [AdminSocialController::class, 'index'])->name('social');
+    Route::get('/social/add', [AdminSocialController::class, 'addPage'])->name('socialAddPage');
+    Route::post('/social/add/item', [AdminSocialController::class, 'add'])->name('socialAdd');
+    Route::get('/social/edit/{id}', [AdminSocialController::class, 'editPage'])->name('socialEditPage');
+    Route::post('/social/edit', [AdminSocialController::class, 'edit'])->name('socialEdit');
+    Route::get('/social/delete/{id}', [AdminSocialController::class, 'delete'])->name('socialDelete');
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 });
 

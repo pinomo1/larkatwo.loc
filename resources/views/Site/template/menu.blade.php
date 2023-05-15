@@ -43,6 +43,11 @@
                     </li>
                     @endforeach
                 </ul>
+
+                <div class="d-flex">
+                    <a href="{{ route('adminka') }}" class="btn btn-outline-warning">Admin Panel</a>
+                </div>
+
                 </div> 
             </div>
         </nav>
